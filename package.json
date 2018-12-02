@@ -1,0 +1,37 @@
+{
+  "name": "aws-log-shipper",
+  "author": {
+    "name": "Robert Schönthal",
+    "email": "robert.schoenthal@gmail.com"
+  },
+  "main": "dist/index.js",
+  "dependencies": {
+    "alb-log-parser": "^0.0.3",
+    "cloudfront-log-parser": "^1.0.0",
+    "debug": "^4.1.0",
+    "elb-log-parser": "^0.0.3",
+    "s3-access-log-parser": "^0.0.2"
+  },
+  "repository": {
+    "url": "https://github.com/digitalkaoz/aws-log-shipper"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.15",
+    "@types/debug": "^0.0.31",
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.11",
+    "aws-lambda": "^0.1.2",
+    "aws-sdk": "^2.353.0",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.4",
+    "typescript": "^3.1.6"
+  },
+  "scripts": {
+    "test": "jest --coverage",
+    "build": "tsc --build",
+    "watch": "tsc --watch",
+    "lint": "prettier --write {src,test}/**/*.ts",
+    "bundle": "rollup -c"
+  },
+  "version": "0.1.0"
+}

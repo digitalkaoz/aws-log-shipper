@@ -1,0 +1,38 @@
+{
+    "Records": [
+      {
+        "eventVersion": "2.0",
+        "eventSource": "aws:s3",
+        "awsRegion": "us-east-1",
+        "eventTime": "2018-09-21T09:44:34.285Z",
+        "eventName": "ObjectCreated:Put",
+        "userIdentity": {
+          "principalId": "AWS:AIDAISHEDTWFNMXMCZ4MG"
+        },
+        "requestParameters": {
+          "sourceIPAddress": "49.197.180.129"
+        },
+        "responseElements": {
+          "x-amz-request-id": "CC1175A4C29B7463",
+          "x-amz-id-2": "AhrjUDyP7CHW4bwrL52MNjEe97M3JQYnSfOBR/QFIgxTD4g0x73YfnPcvO+lo22iXZbBzONn0x4="
+        },
+        "s3": {
+          "s3SchemaVersion": "1.0",
+          "configurationId": "tf-s3-lambda-20180612203520394200000005",
+          "bucket": {
+            "name": "noted-logs-prod-ap-southeast-2-229370416177",
+            "ownerIdentity": {
+              "principalId": "A3G0CAVK1SGSM1"
+            },
+            "arn": "arn:aws:s3:::noted-logs-prod-ap-southeast-2-229370416177"
+          },
+          "object": {
+            "key": "app/EQ7JOT6Y0B7Y2.2018-12-01-16.16ccd10a.gz",
+            "size": 4225390,
+            "eTag": "adff9271d625f08bfb1c72e6d5b1de31",
+            "sequencer": "005BA4BD46CAE3510B"
+          }
+        }
+      }
+    ]
+  }
