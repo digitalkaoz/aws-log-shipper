@@ -5,6 +5,9 @@
     "email": "robert.schoenthal@gmail.com"
   },
   "main": "dist/index.js",
+  "files": [
+    "dist/*"
+  ],
   "dependencies": {
     "alb-log-parser": "^0.0.3",
     "cloudfront-log-parser": "^1.0.0",
@@ -33,5 +36,5 @@
     "lint": "prettier --write {src,test}/**/*.ts",
     "bundle": "rollup -c"
   },
-  "version": "0.1.0"
+  "version": "0.1.1"
 }

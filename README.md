@@ -14,7 +14,7 @@ yarn add aws-log-shipper
 ```js
 const logShipper = require("aws-log-shipper");
 
-module.exports.handler = logShipper;
+module.exports.handler = logShipper.default;
 ```
 
 Then configure your Lambda to use `index.handler` as handler endpoint.
