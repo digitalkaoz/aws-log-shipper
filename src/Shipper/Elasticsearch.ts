@@ -1,36 +1,47 @@
-import Shipper from "./index"
+import Shipper from './index';
 
-import { Client } from "elasticsearch";
+import { Client, ConfigOptions } from 'elasticsearch';
+
+const debug = require('debug')('Elasticsearch');
 
 type Query = {
-    body: Array<Object>
+    body: Array<Object>;
 };
 
 class Elasticsearch implements Shipper {
-    private client:any;
+    private client: any;
 
     constructor(private logGroup: string) {
-        this.client = new Client({ 
-            host: process.env.ELASTIC_ENDPOINT,
-            //log: 'trace'
-         });
+        const config: ConfigOptions = {
+            host: <string>process.env.ELASTIC_ENDPOINT,
+        };
+
+        if (process.env.ELASTIC_AWS) {
+            config.connectionClass = require('http-aws-es');
+        }
+
+        this.client = new Client(config);
     }
 
     sendRecords(streamName: string, records: Object[]): Promise<any> {
-        const query:Query = {
-            body: []
+        const query: Query = {
+            body: [],
         };
+
+        debug(
+            `inserting "${records.length}" records into "${this.client.host}"`,
+        );
 
         records.forEach((record: Object) => {
             query.body.push({
-                index:{ _index: this.logGroup, _type: streamName } 
+                index: { _index: this.logGroup, _type: streamName },
             });
 
             //TODO typing? timestamp?
-            query.body.push(record)
+            query.body.push(record);
         });
 
-        return this.client.bulk(query);        
+        return this.client.bulk(query);
     }
 }
 

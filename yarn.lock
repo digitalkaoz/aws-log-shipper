@@ -1220,6 +1220,11 @@ html-encoding-sniffer@^1.0.2:
   dependencies:
     whatwg-encoding "^1.0.1"
 
+http-aws-es@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/http-aws-es/-/http-aws-es-6.0.0.tgz#1528978d2bee718b8732dcdced0856efa747aeff"
+  integrity sha512-g+qp7J110/m4aHrR3iit4akAlnW0UljZ6oTq/rCcbsI8KP9x+95vqUtx49M2XQ2JMpwJio3B6gDYx+E8WDxqiA==
+
 http-signature@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/http-signature/-/http-signature-1.2.0.tgz#9aecd925114772f3d95b65a60abb8f7c18fbace1"

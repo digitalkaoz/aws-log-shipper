@@ -4,7 +4,7 @@ import {
     DescribeLogStreamsResponse,
     PutLogEventsResponse,
     LogStream,
-    PutLogEventsRequest
+    PutLogEventsRequest,
 } from 'aws-sdk/clients/cloudwatchlogs';
 
 import Shipper from './index';
