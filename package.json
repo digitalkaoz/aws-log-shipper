@@ -12,6 +12,7 @@
     "alb-log-parser": "^0.0.3",
     "cloudfront-log-parser": "^1.0.0",
     "debug": "^4.1.0",
+    "elasticsearch": "^15.3.1",
     "elb-log-parser": "^0.0.3",
     "s3-access-log-parser": "^0.0.2"
   },
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.15",
     "@types/debug": "^0.0.31",
+    "@types/elasticsearch": "^5.0.30",
     "@types/jest": "^23.3.9",
     "@types/node": "^10.12.11",
     "aws-lambda": "^0.1.2",
@@ -31,7 +33,7 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "build": "tsc --build",
+    "build": "tsc --build && prettier --write dist/**/*.js",
     "watch": "tsc --watch",
     "lint": "prettier --write {src,test}/**/*.ts",
     "bundle": "rollup -c"

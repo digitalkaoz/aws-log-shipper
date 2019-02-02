@@ -4,6 +4,7 @@ import {
     DescribeLogStreamsResponse,
     PutLogEventsResponse,
     LogStream,
+    PutLogEventsRequest
 } from 'aws-sdk/clients/cloudwatchlogs';
 
 import Shipper from './index';
@@ -38,7 +39,7 @@ class Cloudwatch implements Shipper {
         let sequence = logStream.uploadSequenceToken;
         for (let i = 0; i < records.length; i += 10000) {
             const response: PutLogEventsResponse = await this.cloudwatch
-                .putLogEvents({
+                .putLogEvents(<PutLogEventsRequest>{
                     logStreamName: logStream.logStreamName,
                     logGroupName: this.logGroup,
                     logEvents: records,

@@ -1,13 +1,14 @@
 import { Readable } from 'stream';
 
+import Processor from './Processor/index';
 import Cloudfront from './Processor/Cloudfront';
 import Alb from './Processor/Alb';
 import Elb from './Processor/Elb';
 import S3 from './Processor/S3';
 
-import Processor from './Processor/index';
 import Shipper from './Shipper/index';
 import Cloudwatch from './Shipper/Cloudwatch';
+import Elasticsearch from './Shipper/Elasticsearch';
 
 class LogProcessor {
     public async process(stream: Readable, file: string) {
@@ -25,6 +26,7 @@ class LogProcessor {
 
         switch (process.env.SHIPPER) {
             case "cloudwatch" : return new Cloudwatch(logGroup);
+            case "elasticsearch" : return new Elasticsearch(logGroup);
         }
 
         throw new Error("env variable SHIPPER should be one of [cloudwatch|]")
