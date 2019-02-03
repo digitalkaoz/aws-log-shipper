@@ -39,5 +39,5 @@
     "lint": "prettier --write {src,test}/**/*.ts",
     "bundle": "rollup -c"
   },
-  "version": "0.2.4"
+  "version": "0.2.5"
 }
