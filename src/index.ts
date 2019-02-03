@@ -3,6 +3,8 @@ import { S3Event, Context, Callback } from 'aws-lambda';
 import Request from './Request';
 import LogProcessor from './LogProcessor';
 
+const debug = require('debug')('handler');
+
 const handler = async (
     event: S3Event,
     context: Context,
@@ -14,8 +16,12 @@ const handler = async (
     try {
         const stream = request.getFileStream();
 
-        await processor.process(stream, request.getFile());
-        await request.deleteFile();
+        const processResult = await processor.process(stream, request.getFile());
+        debug(processResult);
+
+        const deleteResult = await request.deleteFile();
+        debug(deleteResult);
+
         callback
             ? callback(null, `shipped ${request.getFile()}`)
             : context.succeed(`shipped ${request.getFile()}`);

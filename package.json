@@ -34,7 +34,7 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "build": "tsc --build && prettier --write dist/**/*.js",
+    "build": "rm -rf dist && tsc --build && prettier --write dist/**/*.js",
     "watch": "tsc --watch",
     "lint": "prettier --write {src,test}/**/*.ts",
     "bundle": "rollup -c"

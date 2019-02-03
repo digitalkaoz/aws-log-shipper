@@ -27,8 +27,6 @@ export default class Request {
     }
 
     public deleteFile() {
-        console.log(S3.prototype
-            .deleteObject);
         return this.s3
             .deleteObject({
                 Bucket: this.getBucket(),
