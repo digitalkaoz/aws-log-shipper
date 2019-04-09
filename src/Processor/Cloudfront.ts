@@ -6,6 +6,11 @@ const CloudFrontParser = require('cloudfront-log-parser');
 
 import Processor from './index';
 
+type Record = {
+    date: string;
+    time: string;
+}
+
 class Cloudfront implements Processor {
     private parser: Transform;
     private records: Array<Object> = [];
@@ -35,27 +40,30 @@ class Cloudfront implements Processor {
     private read(): void {
         let record;
         while ((record = this.parser.read())) {
-            let date: Array<any> | null = `${record['date']} ${
-                record['time']
-            }`.match(/(\d{4})-(\d{2})-(\d{2})[T\s](\d{2}):(\d{2}):(\d{2})/);
-
-            if (!date) {
-                console.error('error parsing date');
-                return;
-            }
-
             this.records.push({
-                timestamp: Date.UTC(
-                    date[1],
-                    parseInt(date[2], 10) - 1,
-                    date[3],
-                    date[4],
-                    date[5],
-                    date[6],
-                ),
+                timestamp: this.parseTime(record),
                 message: JSON.stringify(record),
             });
         }
+    }
+
+    private parseTime(record:Record) : number {
+        let date: Array<any> | null = `${record['date']} ${
+            record['time']
+        }`.match(/(\d{4})-(\d{2})-(\d{2})[T\s](\d{2}):(\d{2}):(\d{2})/);
+
+        if (!date) {
+            return 0;
+        }
+
+        return Date.UTC(
+            date[1],
+            parseInt(date[2], 10) - 1,
+            date[3],
+            date[4],
+            date[5],
+            date[6],
+        );
     }
 
     public getStreamName(key: string): string {
@@ -67,7 +75,7 @@ class Cloudfront implements Processor {
         return extractedName.substring(0, extractedName.lastIndexOf('-'));
     }
 
-    getLogGroup(): string {
+    public getLogGroup(): string {
         return process.env.CF_LOG_GROUP || 'cloudfront';
     }
 }

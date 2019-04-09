@@ -28,7 +28,7 @@ class Elasticsearch implements Shipper {
         this.client = new Client(config);
     }
 
-    sendRecords(streamName: string, records: Record[]): Promise<any> {
+    async sendRecords(streamName: string, records: Record[]): Promise<any> {
         const query: Query = {
             body: [],
         };
@@ -42,24 +42,29 @@ class Elasticsearch implements Shipper {
         records.forEach((record: Record) => {
             query.body.push({
                 index: {
-                    _index: this.logGroup,
+                    _index: `${this.logGroup}-${streamName.split('/')[1]}`,
                     _type: streamName.split('/')[0],
                 },
             });
 
             //TODO typing?
             query.body.push({
-                '@timestamp': record.timestamp,
                 ...JSON.parse(record.message),
+                '@timestamp': record.timestamp,
+                timestamp: new Date(record.timestamp).toISOString()
             });
         });
 
-        debug(records);
+        const result = await this.client.bulk(query);
 
-        return this.client.bulk(query);
+        if (result.errors) {
+            throw new Error(JSON.stringify(result.items));
+        }
+
+        return result;
     }
 
-    private formatIndex(name: string) {
+    private formatIndex(name: string):string {
         const newName = name.replace(/\//g, '-');
 
         if (

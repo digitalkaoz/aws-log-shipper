@@ -67,25 +67,37 @@ class Cloudwatch implements Shipper {
     }
 
     private async createLogStream(streamName: string): Promise<void> {
-        try {
+        const streams = await this.cloudwatch
+            .describeLogStreams({
+                logGroupName: this.logGroup,
+                logStreamNamePrefix: streamName,
+            })
+            .promise();
+
+        if (!streams.logStreams || !streams.logStreams.length) {
             await this.cloudwatch
                 .createLogStream({
                     logGroupName: this.logGroup,
                     logStreamName: streamName,
                 })
                 .promise();
-        } catch (e) {}
+        }
     }
 
     private async createLogGroup(): Promise<void> {
-        try {
+        const groups = await this.cloudwatch
+            .describeLogGroups({
+                logGroupNamePrefix: this.logGroup,
+            })
+            .promise();
+
+        if (!groups.logGroups || !groups.logGroups.length) {
             await this.cloudwatch
                 .createLogGroup({
                     logGroupName: this.logGroup,
-                    //kmsKeyId:
                 })
                 .promise();
-        } catch (e) {}
+        }
     }
 }
 
