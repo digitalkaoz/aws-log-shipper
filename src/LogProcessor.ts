@@ -54,7 +54,7 @@ class LogProcessor {
         const records = await processor.process(stream);
 
         return {
-            logGroup: processor.getLogGroup(),
+            logGroup: processor.getLogGroup(file),
             stream: processor.getStreamName(file),
             records,
         };

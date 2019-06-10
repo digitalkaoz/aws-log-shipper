@@ -38,8 +38,7 @@ class Alb implements Processor {
     }
 
     public getStreamName(key: string): string {
-        //api/AWSLogs/229370416177/elasticloadbalancing/ap-southeast-2/2018/12/01/229370416177_elasticloadbalancing_ap-southeast-2_app.noted-api-prod.c7a793cfdf49a4ca_20181201T0000Z_13.236.212.223_pvjbod30.log.gz -> noted-api-prod/2018-12-01
-        const extractedName = basename(key).split('.')[1];
+        //api/AWSLogs/229370416177/elasticloadbalancing/ap-southeast-2/2018/12/01/229370416177_elasticloadbalancing_ap-southeast-2_app.noted-api-prod.c7a793cfdf49a4ca_20181201T0000Z_13.236.212.223_pvjbod30.log.gz -> 2018-12-01
         const dirName = dirname(key)
             .split('/')
             .reverse()
@@ -47,11 +46,13 @@ class Alb implements Processor {
             .reverse()
             .join('-');
 
-        return `${extractedName}/${dirName}`;
+        return dirName;
     }
 
-    public getLogGroup(): string {
-        return process.env.ALB_LOG_GROUP || 'alb';
+    public getLogGroup(key: string): string {
+        const extractedName = basename(key).split('.')[1];
+
+        return process.env.ALB_LOG_GROUP || `/aws/alb/${extractedName}`;
     }
 }
 

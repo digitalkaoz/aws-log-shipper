@@ -67,16 +67,16 @@ class Cloudfront implements Processor {
     }
 
     public getStreamName(key: string): string {
-        //foo/bar/bazz/E20D7WQ5MJ98VF.2018-11-29-22.f6ea1037.gz -> E20D7WQ5MJ98VF/2018-11-29
+        //foo/bar/bazz/E20D7WQ5MJ98VF.2018-11-29-22.f6ea1037.gz -> 2018-11-29
         const extractedName = basename(key)
-            .split('.')
-            .slice(0, 2)
-            .join('/');
+            .split('.')[1]
         return extractedName.substring(0, extractedName.lastIndexOf('-'));
     }
 
-    public getLogGroup(): string {
-        return process.env.CF_LOG_GROUP || 'cloudfront';
+    public getLogGroup(key: string): string {
+        const extractedName = basename(key).split('.')[0]
+
+        return process.env.CF_LOG_GROUP || `/aws/cloudfront/${extractedName}`;
     }
 }
 

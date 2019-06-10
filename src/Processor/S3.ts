@@ -49,8 +49,8 @@ class S3 implements Processor {
         return `${dirName}/${extractedName}`;
     }
 
-    public getLogGroup(): string {
-        return process.env.S3_LOG_GROUP || 's3';
+    public getLogGroup(key: string): string {
+        return process.env.S3_LOG_GROUP || '/aws/s3';
     }
 }
 
