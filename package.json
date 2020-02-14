@@ -26,7 +26,7 @@
     "@types/elasticsearch": "^5.0.30",
     "@types/jest": "^23.3.9",
     "@types/node": "^10.12.11",
-    "aws-lambda": "^0.1.2",
+    "aws-lambda": "^1.0.5",
     "aws-sdk": "^2.353.0",
     "jest": "^23.6.0",
     "ts-jest": "^23.10.4",
